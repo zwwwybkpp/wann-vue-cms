@@ -1,4 +1,4 @@
-import type { App } from 'vue';
+import type { App } from 'vue'
 import {
   ElButton,
   ElForm,
@@ -6,8 +6,14 @@ import {
   ElInput,
   ElRadio,
   ElAlert,
-  ElAside
-} from 'element-plus';
+  ElAside,
+  ElTabs,
+  ElTabPane,
+  ElIcon,
+  ElCheckbox,
+  ElLink
+} from 'element-plus'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 const components = [
   ElButton,
   ElForm,
@@ -16,10 +22,18 @@ const components = [
   ElRadio,
   ElRadio,
   ElAlert,
-  ElAside
-];
+  ElAside,
+  ElTabs,
+  ElTabPane,
+  ElIcon,
+  ElCheckbox,
+  ElLink
+]
 export default function (app: App) {
   for (const component of components) {
-    app.component(component.name, component);
+    app.component(component.name, component)
+  }
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
   }
 }

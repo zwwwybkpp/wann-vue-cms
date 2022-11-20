@@ -1,5 +1,5 @@
-import registerElement from './register-element';
+import registerElement from './register-element'
 
 export default function (app: any) {
-  app.use(registerElement);
+  app.use(registerElement)
 }
