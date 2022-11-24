@@ -4,8 +4,12 @@
       <el-form-item label="账号" prop="name">
         <el-input v-model="account.name"></el-input>
       </el-form-item>
-      <el-form-item label="密码" aprop="password">
-        <el-input v-model="account.password" type="password"></el-input>
+      <el-form-item label="密码" prop="password">
+        <el-input
+          v-model="account.password"
+          type="password"
+          show-password
+        ></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -16,16 +20,27 @@ import { reactive, ref } from 'vue'
 import { rules } from '../config/account-config'
 import type { FormInstance } from 'element-plus'
 import { ElForm } from 'element-plus'
+import localCache from '../../../utils/localCache'
+import appStore from '@/stores'
 
+const { useLoginStore } = appStore
 const formRef = ref<FormInstance>()
 const account = reactive({
-  name: null,
-  password: ''
+  name: localCache.getCache('user')?.name ?? '',
+  password: localCache.getCache('user')?.password ?? ''
 })
-const loginAction = () => {
+const loginAction = (isKeepPassword: boolean) => {
   formRef.value?.validate(isValid => {
     if (isValid) {
-      console.log('正在登录')
+      if (isKeepPassword) {
+        localCache.setCache('user', account)
+        localCache.setCache('isKeepPassword', true)
+      } else {
+        localCache.deleteCache('name')
+        localCache.deleteCache('password')
+        localCache.deleteCache('isKeepPassword')
+      }
+      useLoginStore.accountLoginAction({ ...account })
     } else {
       console.log('参数错误')
     }

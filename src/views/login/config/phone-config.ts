@@ -11,7 +11,7 @@ export const rules = {
     { required: true, message: '验证码是必传内容~', trigger: 'blur' },
     {
       pattern: /^[0-9]{4}$/,
-      message: '验证码位4位数字',
+      message: '验证码为4位数字',
       trigger: 'blur'
     }
   ]

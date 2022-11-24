@@ -35,11 +35,12 @@
 import { ref, watch } from 'vue'
 import LoginAccount from './LoginAccount.vue'
 import LoginPhone from './LoginPhone.vue'
+import localCache from '@/utils/localCache'
 
 const activeName = ref('account')
 const accountRef = ref<InstanceType<typeof LoginAccount>>()
 const phoneRef = ref<InstanceType<typeof LoginPhone>>()
-const isKeepPassword = ref(true)
+const isKeepPassword = ref(!!localCache.getCache('isKeepPassword'))
 watch(activeName, value => {
   if (value != 'account') {
     accountRef.value.clear()
@@ -49,7 +50,7 @@ watch(activeName, value => {
 })
 const handleLoginClick = () => {
   if (activeName.value == 'account') {
-    accountRef.value?.loginAction()
+    accountRef.value?.loginAction(isKeepPassword.value)
   } else {
     phoneRef.value?.loginAction()
   }

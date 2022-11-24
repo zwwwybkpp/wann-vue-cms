@@ -1,10 +1,10 @@
-import axios from 'axios'
 import type { AxiosInstance } from 'axios'
-import type { WRequestInterceptors, WRequestConfig } from './type'
+import axios from 'axios'
+import type { WRequestConfig, WRequestInterceptors } from './type'
 import { ElLoading } from 'element-plus'
 import type { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
 
-const DEFAULT_LOAING = false
+const DEFAULT_LOADING = false
 
 class WRequest {
   interface: AxiosInstance
@@ -14,7 +14,7 @@ class WRequest {
   constructor(config: WRequestConfig) {
     this.interface = axios.create(config)
     this.interceptors = config.interceptors
-    this.showLoading = config.showLoading ?? DEFAULT_LOAING
+    this.showLoading = config.showLoading ?? DEFAULT_LOADING
 
     //* 每个实例特有的拦截器
     this.interface.interceptors.request.use(
@@ -28,7 +28,6 @@ class WRequest {
     //* 所有请求实例都有的拦截器
     this.interface.interceptors.request.use(
       config => {
-        console.log('所有请求实例都有的拦截器', '请求成功')
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -39,7 +38,6 @@ class WRequest {
         return config
       },
       err => {
-        console.log('所有请求实例都有的拦截器', '请求失败')
         return err
       }
     )
@@ -48,13 +46,11 @@ class WRequest {
       res => {
         //* 将loading移除
         setTimeout(() => this.loading?.close(), 1000)
-        console.log('所有响应实例都有的拦截器', '响应成功')
         return res.data
       },
       err => {
         //* 将loading移除
         this.loading?.close()
-        console.log('所有响应实例都有的拦截器', '响应失败')
         return err
       }
     )
@@ -74,11 +70,11 @@ class WRequest {
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res)
           }
-          this.showLoading = DEFAULT_LOAING
+          this.showLoading = DEFAULT_LOADING
           resolve(res)
         })
         .catch(err => {
-          this.showLoading = DEFAULT_LOAING
+          this.showLoading = DEFAULT_LOADING
           reject(err)
         })
     })

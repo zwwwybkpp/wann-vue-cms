@@ -1,5 +1,6 @@
 import WRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
+import localCache from '@/utils/localCache'
 //* 实例WRequest
 const wRequest = new WRequest({
   baseURL: BASE_URL,
@@ -7,19 +8,20 @@ const wRequest = new WRequest({
   //* 实例WRequest的拦截器
   interceptors: {
     requestInterceptor: config => {
-      console.log('请求成功')
+      //给请求增加token
+      const token = localCache.getCache('token')
+      if (token) {
+        config.headers!.Authorization = `Bearer ${token}`
+      }
       return config
     },
     requestInterceptorCatch: error => {
-      console.log('请求失败')
       return error
     },
     responseInterceptor: res => {
-      console.log('响应成功')
       return res
     },
     responseInterceptorCatch: error => {
-      console.log('响应失败')
       return error
     }
   }

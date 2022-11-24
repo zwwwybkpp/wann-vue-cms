@@ -5,13 +5,13 @@ const Random = Mock.Random
 
 Mock.Random.extend({
   phone: function () {
-    var phonePrefixs = ['132', '135', '189', '177'] // 自己写前缀哈
-    return this.pick(phonePrefixs) + Mock.mock(/\d{8}/) //Number()
+    const phonePrefixes = ['132', '135', '189', '177'] // 自己写前缀哈
+    return this.pick(phonePrefixes) + Mock.mock(/\d{8}/) //Number()
   }
 })
 
 module.exports = () => {
-  const data = { list: [] }
+  const data = { list: [], login: [] }
   for (let index = 0; index < 20; index++) {
     data.list.push({
       id: index,
@@ -20,5 +20,10 @@ module.exports = () => {
       tel: Random.phone()
     })
   }
+  data.login.push({
+    id: 1,
+    name: 'wann',
+    password: 'a123456'
+  })
   return data
 }
