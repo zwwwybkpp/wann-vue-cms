@@ -2,24 +2,41 @@ import type { App } from 'vue'
 import {
   ElAlert,
   ElAside,
+  ElAvatar,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
   ElButton,
   ElCheckbox,
+  ElCol,
   ElContainer,
+  ElDatePicker,
+  ElDialog,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
   ElForm,
   ElFormItem,
   ElHeader,
   ElIcon,
+  ElImage,
   ElInput,
   ElLink,
   ElMain,
   ElMenu,
   ElMenuItem,
   ElMenuItemGroup,
+  ElOption,
+  ElPagination,
   ElRadio,
+  ElRow,
   ElScrollbar,
+  ElSelect,
   ElSubMenu,
+  ElTable,
+  ElTableColumn,
   ElTabPane,
-  ElTabs
+  ElTabs,
+  ElTag
 } from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
@@ -43,7 +60,24 @@ const components = [
   ElMenu,
   ElMenuItem,
   ElMenuItemGroup,
-  ElSubMenu
+  ElSubMenu,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElAvatar,
+  ElCol,
+  ElRow,
+  ElSelect,
+  ElOption,
+  ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn,
+  ElTag,
+  ElPagination,
+  ElImage,
+  ElDialog
 ]
 export default function (app: App) {
   for (const component of components) {

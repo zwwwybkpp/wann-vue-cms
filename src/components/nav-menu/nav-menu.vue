@@ -1,6 +1,6 @@
 <template>
   <div class="nav-menu">
-    <div class="logo">
+    <div class="logo" @click="toMain">
       <img
         :class="{ 'is-collapse': collapse }"
         src="https://v2.cn.vuejs.org/images/logo.svg"
@@ -10,27 +10,29 @@
     </div>
     <div class="menu">
       <el-menu
+        ref="menuRef"
+        :default-active="$route.path"
         class="el-menu-vertical"
-        default-active="1-0"
         :collapse="collapse"
+        collapse-transition
         background-color="#001529"
         text-color="#d1d2d3"
         active-text-color="#2e86de"
+        unique-opened
+        router
+        @open="handleOpen"
       >
-        <template v-for="(item, index) in userMenus" :key="item.id">
+        <template v-for="item in userMenus" :key="item.id">
           <template v-if="item.type === 1">
-            <el-sub-menu :index="index + ''">
+            <el-sub-menu :index="item.url">
               <template #title>
                 <el-icon v-if="item.icon">
                   <component :is="getIconName(item.icon)"></component>
                 </el-icon>
                 <span>{{ item.name }}</span>
               </template>
-              <template
-                v-for="(subItem, subIndex) in item.children"
-                :key="subItem.id"
-              >
-                <el-menu-item :index="index + '-' + subIndex">
+              <template v-for="subItem in item.children" :key="subItem.id">
+                <el-menu-item :index="subItem.url">
                   <template #title>
                     <el-icon v-if="subItem.icon">
                       <component :is="getIconName(subItem.icon)"></component>
@@ -42,7 +44,7 @@
             </el-sub-menu>
           </template>
           <template v-else-if="item.type === 2">
-            <el-menu-item :index="index">
+            <el-menu-item :index="item.url">
               <template #title>
                 <el-icon v-if="item.icon">
                   <component :is="getIconName(item.icon)"></component>
@@ -58,20 +60,35 @@
 </template>
 
 <script lang="ts" setup>
+import router from '@/router'
 import appStore from '@/stores'
-
+import { firstMenuPath } from '@/utils/map-menus'
+import { ref } from 'vue'
 defineProps({
   collapse: {
     type: Boolean,
     default: false
   }
 })
+const menuRef = ref()
+const keyIndex = ref('')
 const { useLoginStore } = appStore
-const { userMenus } = useLoginStore.loginStore
-
-const getIconName = (icon: string) => {
-  return icon.replace('el-icon-', '')
+const { userMenus } = useLoginStore.loginState
+const getIconName = (iconName: string) => {
+  return iconName.replace('el-icon-', '')
 }
+const toMain = () => {
+  router.push(firstMenuPath)
+  // menuRef.value.close(keyIndex.value)
+}
+const handleOpen = (index: any) => {
+  keyIndex.value = index
+}
+// const handleMenuItemClick = (item: any) => {
+//   router.push({
+//     path: item.url ?? '/not-found'
+//   })
+// }
 </script>
 
 <style lang="scss" scoped>

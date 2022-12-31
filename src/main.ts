@@ -9,9 +9,9 @@ import 'normalize.css'
 import { registerStore, setupStore } from '@/stores'
 
 const app = createApp(App)
-//* 注册element ui
-app.use(globalRegister)
+
 app.use(createPinia()).use(registerStore).use(setupStore)
 app.use(router)
-
+//* 全局注册
+app.use(globalRegister)
 app.mount('#app')

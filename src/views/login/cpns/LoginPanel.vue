@@ -43,9 +43,9 @@ const phoneRef = ref<InstanceType<typeof LoginPhone>>()
 const isKeepPassword = ref(!!localCache.getCache('isKeepPassword'))
 watch(activeName, value => {
   if (value != 'account') {
-    accountRef.value.clear()
+    accountRef.value?.clear()
   } else {
-    phoneRef.value.clear()
+    phoneRef.value?.clear()
   }
 })
 const handleLoginClick = () => {

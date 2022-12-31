@@ -1,6 +1,6 @@
 import wRequest from '@/service'
-import type { IAccount, IDataType, ILoginResult } from '@/service/login/type'
-
+import type { IAccount, ILoginResult } from '@/service/login/type'
+import type { IDataType } from '../type'
 enum LoginAPI {
   AccountLogin = '/login',
   LoginUserInfo = '/users/',

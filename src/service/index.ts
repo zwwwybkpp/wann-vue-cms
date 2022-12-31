@@ -1,6 +1,6 @@
 import WRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
-import localCache from '@/utils/localCache'
+import localCache from '../utils/localCache'
 //* 实例WRequest
 const wRequest = new WRequest({
   baseURL: BASE_URL,

@@ -20,7 +20,7 @@ import { reactive, ref } from 'vue'
 import { rules } from '../config/account-config'
 import type { FormInstance } from 'element-plus'
 import { ElForm } from 'element-plus'
-import localCache from '../../../utils/localCache'
+import localCache from '@/utils/localCache'
 import appStore from '@/stores'
 
 const { useLoginStore } = appStore

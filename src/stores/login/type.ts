@@ -1,9 +1,9 @@
-export interface LoginStore {
+export interface loginState {
   token: string
   userInfo: any
   userMenus: any
-}
-export interface RootStore {
-  name: string
-  age: number
+  isAddRoutes: boolean
+  permission: string[]
+  entireDdepartment: any
+  entireRole: any
 }

@@ -1,14 +1,18 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside :width="isCollapse ? '64px' : '200px'">
+      <el-aside :width="isCollapse ? '64px' : '180px'">
         <nav-menu :collapse="isCollapse" />
       </el-aside>
       <el-container class="page">
         <el-header class="page-header">
           <nav-header @foldChange="handleFoldChange" />
         </el-header>
-        <el-main class="page-content"> </el-main>
+        <el-main class="page-content">
+          <div class="page-info">
+            <router-view></router-view>
+          </div>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -67,6 +71,10 @@ const handleFoldChange = (isFold: boolean) => {
     color: #333;
     text-align: center;
     background-color: #f0f2f5;
+    .page-info {
+      border-radius: 10px;
+      background-color: #fff;
+    }
   }
 }
 </style>

@@ -45,7 +45,7 @@ class WRequest {
     this.interface.interceptors.response.use(
       res => {
         //* 将loading移除
-        setTimeout(() => this.loading?.close(), 1000)
+        setTimeout(() => this.loading?.close(), 100)
         return res.data
       },
       err => {
@@ -86,7 +86,7 @@ class WRequest {
     return this.request<T>({ ...config, method: 'POST' })
   }
   delete<T>(config: WRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'DLETE' })
+    return this.request<T>({ ...config, method: 'DELETE' })
   }
   patch<T>(config: WRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })

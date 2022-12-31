@@ -15,5 +15,8 @@ module.exports = {
   },
   globals: {
     module: true
+  },
+  rules: {
+    'vue/multi-word-component-names': 'off'
   }
 }
